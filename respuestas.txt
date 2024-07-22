@@ -1,0 +1,57 @@
+Murciélago
+Rana
+Ratón
+La estrella de mar.
+La luciérnaga
+El caracol
+El camaleón
+El cangrejo
+La abeja
+La mariposa
+El búho
+La araña
+La oveja
+El pingüino
+La mariquita
+El saltamontes
+El gallo
+El leopardo
+La cebra
+La ballena
+El león
+El perro
+La pera
+El plátano
+El aguacate
+El tomate
+La zanahoria
+La avellana
+La sandía
+La papa
+2
+1
+3
+5
+El bombero
+El policía
+El cartero
+El carpintero
+El cocinero
+La costurera
+El panadero
+Un escultor
+El albañil
+El agricultor
+El zapatero
+El pescador
+El peluquero
+El plomero
+El médico o doctor
+El pintor
+Odontólogo o dentista
+El piloto
+El camionero
+El payaso
+El veterinario
+El taxista
+El fotógrafo
