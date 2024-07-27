@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class adivinanzas {
-    private Preguntas pregObj;
+    private preguntas pregObj;
     private Respuestas respObj;
     Scanner sc = new Scanner(System.in);
     public long tiempo;
@@ -12,14 +12,25 @@ public class adivinanzas {
     public List<Estadistica> estadisticas;
 
     public adivinanzas() {
-        pregObj = new Preguntas();
+        pregObj = new preguntas();
         respObj = new Respuestas();
         estadisticas = new ArrayList<>();
     }
 
     public static void main(String[] args) {
         adivinanzas juego = new adivinanzas();
-        juego.usuario();
+        juego.menu();
+    }
+
+    public void menu(){
+        System.out.println("Elija ser un usuario o ser modo administrador");
+        String menu = sc.next();
+        if ("usuario".equals(menu)) {
+            usuario();
+        }
+        else{
+            modadmind();
+        }
     }
 
     public void estadisticas() {
@@ -28,6 +39,7 @@ public class adivinanzas {
             String resultado = est.correcta ? "Optimo" : "Refuerza aprendizaje";
             System.out.println(est.pregunta + "\t" + est.tiempo + "\t" + resultado);
         }
+        menu();
     }
 
     public int puntyerror(int indice, List<String> resp, int eleccion, int puntos) {
@@ -47,7 +59,67 @@ public class adivinanzas {
     }
 
     public void modadmind() {
+        int opcion;
+        do {
+            System.out.println("Modo Administrador");
+            System.out.println("1. Mostrar preguntas y respuestas");
+            System.out.println("2. Modificar pregunta y respuesta");
+            System.out.println("3. Agregar preguntas y respuestas");
+            System.out.println("4. Eliminar pregunta y respuesta");
+            System.out.println("5. Jugar");
+            System.out.println("6. Salir");
+            opcion = sc.nextInt();
+            sc.nextLine(); // consumir la nueva línea
+
+            switch (opcion) {
+                case 1:
+                    pregObj.mostrarPreguntas();
+                    break;
+                case 2:
+                    System.out.println("Ingrese el índice de la pregunta que desea modificar:");
+                    int indiceModificar = sc.nextInt();
+                    sc.nextLine(); // consumir la nueva línea
+                    System.out.println("Ingrese la nueva pregunta:");
+                    String nuevaPregunta = sc.nextLine();
+                    System.out.println("Ingrese la nueva respuesta:");
+                    String nuevaRespuesta = sc.nextLine();
+                    pregObj.modPreguntas(indiceModificar, nuevaPregunta, nuevaRespuesta);
+                    break;
+                case 3:
+                    System.out.println("Ingrese las preguntas a agregar, separadas por un salto de línea. Escriba 'fin' para terminar:");
+                    List<String> agregarPreguntas = new ArrayList<>();
+                    List<String> agregarRespuestas = new ArrayList<>();
+                    String pregunta;
+                    while (!(pregunta = sc.nextLine()).equalsIgnoreCase("fin")) {
+                        agregarPreguntas.add(pregunta);
+                        System.out.println("Ingrese la respuesta para la pregunta: " + pregunta);
+                        String respuesta = sc.nextLine();
+                        agregarRespuestas.add(respuesta);
+                    }
+                    pregObj.addPreguntas(agregarPreguntas, agregarRespuestas);
+                    break;
+                case 4:
+                    System.out.println("Ingrese el índice de la pregunta que desea eliminar:");
+                    int indiceEliminar = sc.nextInt();
+                    sc.nextLine(); // consumir la nueva línea
+                    pregObj.eliminarPreguntas(indiceEliminar);
+                    break;
+                case 5:
+                    System.out.println("Cantidad de preguntas para jugar:");
+                    int preg = sc.nextInt();
+                    sc.nextLine(); // consumir la nueva línea
+                    iniciar(preg);
+                    break;
+                case 6:
+                    System.out.println("Saliendo del modo administrador.");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Intente de nuevo.");
+                    break;
+            }
+        } while (opcion != 6);
     }
+
 
     public void usuario() {
         System.out.println("Elija la cantidad de preguntas (no mas de 10)");
