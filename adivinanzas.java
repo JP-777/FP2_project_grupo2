@@ -7,7 +7,7 @@ public class adivinanzas {
     private Preguntas pregObj;
     private Respuestas respObj;
     Scanner sc = new Scanner(System.in);
-
+    public long tiempo;
     public adivinanzas() {
         pregObj = new Preguntas();
         respObj = new Respuestas();
@@ -53,11 +53,11 @@ public class adivinanzas {
         List<String> pregseleccionadas = mipreguntas(cant, numran);
         List<String> respseleccionadas = mirespuestas(cant, numran);
         int puntos = 0;
-
+        
         for (int indice = 0; indice < pregseleccionadas.size(); indice++) {
             String pregunta = pregseleccionadas.get(indice);
             System.out.println(pregunta);
-
+            long tiemxpreg = System.currentTimeMillis() / 1000;
             for (int resp = 0; resp < respseleccionadas.size(); resp++) {
                 System.out.println((resp + 1) + ") " + respseleccionadas.get(resp));
             }
@@ -65,7 +65,11 @@ public class adivinanzas {
             int eleccion = sc.nextInt() - 1;
             puntos = puntyerror(indice, respseleccionadas, eleccion, puntos);
             System.out.println("Puntos: " + puntos);
+            long fin = System.currentTimeMillis() / 1000;
+            System.out.println(fin - tiemxpreg);
+            tiempo = (fin - tiemxpreg) + tiempo;
         }
+        System.out.println(tiempo);
     }
 
     public List<String> mipreguntas(int cant, int[] numran) {
