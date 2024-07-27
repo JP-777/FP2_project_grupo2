@@ -1,25 +1,33 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.*;
+import java.util.Scanner;
 
 public class adivinanzas {
     private Preguntas pregObj;
     private Respuestas respObj;
     Scanner sc = new Scanner(System.in);
     public long tiempo;
+    public long tiempototal;
+    public List<Estadistica> estadisticas;
+
     public adivinanzas() {
         pregObj = new Preguntas();
         respObj = new Respuestas();
+        estadisticas = new ArrayList<>();
     }
 
     public static void main(String[] args) {
         adivinanzas juego = new adivinanzas();
-        juego.iniciar();
+        juego.usuario();
     }
 
-    public int estadisticas() {
-        return 0;
+    public void estadisticas() {
+        System.out.println("Pregunta\tTiempo (s)\tResultado");
+        for (Estadistica est : estadisticas) {
+            String resultado = est.correcta ? "Optimo" : "Refuerza aprendizaje";
+            System.out.println(est.pregunta + "\t" + est.tiempo + "\t" + resultado);
+        }
     }
 
     public int puntyerror(int indice, List<String> resp, int eleccion, int puntos) {
@@ -28,6 +36,9 @@ public class adivinanzas {
             String respuesta = resp.get(eleccion);
             if (pregunta.equals(respuesta)) {
                 puntos = puntos + 1;
+                estadisticas.add(new Estadistica(pregunta, true, tiempo));
+            } else {
+                estadisticas.add(new Estadistica(pregunta, false, tiempo));
             }
         } else {
             System.out.println("Invalid index or choice");
@@ -36,15 +47,15 @@ public class adivinanzas {
     }
 
     public void modadmind() {
-        // Implementation of admin mode
     }
 
     public void usuario() {
-        // Implementation of user mode
+        System.out.println("Elija la cantidad de preguntas (no mas de 10)");
+        int cant = sc.nextInt();
+        iniciar(cant);
     }
 
-    public void iniciar() {
-        int cant = 3;
+    public void iniciar(int cant) {
         int[] numran = new int[cant];
         Random rand = new Random();
         for (int i = 0; i < cant; i++) {
@@ -53,7 +64,7 @@ public class adivinanzas {
         List<String> pregseleccionadas = mipreguntas(cant, numran);
         List<String> respseleccionadas = mirespuestas(cant, numran);
         int puntos = 0;
-        
+
         for (int indice = 0; indice < pregseleccionadas.size(); indice++) {
             String pregunta = pregseleccionadas.get(indice);
             System.out.println(pregunta);
@@ -66,10 +77,14 @@ public class adivinanzas {
             puntos = puntyerror(indice, respseleccionadas, eleccion, puntos);
             System.out.println("Puntos: " + puntos);
             long fin = System.currentTimeMillis() / 1000;
-            System.out.println(fin - tiemxpreg);
-            tiempo = (fin - tiemxpreg) + tiempo;
+            System.out.println("Tiempo por pregunta: " + (fin - tiemxpreg));
+            tiempo = (fin - tiemxpreg);
+            tiempototal = tiempo + tiempototal;
         }
-        System.out.println(tiempo);
+        System.out.println("Tiempo total: " + tiempototal);
+        
+        estadisticas();
+        
     }
 
     public List<String> mipreguntas(int cant, int[] numran) {
@@ -87,7 +102,7 @@ public class adivinanzas {
                 copiaPreguntas.remove(indiceAleatorio);
             }
         }
-
+        
         return adivinanzas;
     }
 
