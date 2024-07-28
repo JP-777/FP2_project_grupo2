@@ -45,8 +45,8 @@ class Respuestas{
 
     // Método para modificar una respuesta específica por índice
     public void modRespuesta(int indice, String nuevaRespuesta) {
-        if (indice-1 >= 0 && indice-1 < respuestas.size()) {
-            respuestas.set(indice-1, nuevaRespuesta);
+        if (indice >= 0 && indice < respuestas.size()) {
+            respuestas.set(indice, nuevaRespuesta);
         } else {
             System.out.println("Índice fuera de rango.");
         }
@@ -59,8 +59,8 @@ class Respuestas{
 
     // Método para eliminar una respuesta específica por índice
     public void eliminarRespuesta(int indice) {
-        if (indice-1 >= 0 && indice-1 < respuestas.size()) {
-            respuestas.remove(indice-1);
+        if (indice >= 0 && indice < respuestas.size()) {
+            respuestas.remove(indice);
         } else {
             System.out.println("Índice fuera de rango.");
         }
